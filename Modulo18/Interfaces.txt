@@ -1,8 +1,0 @@
-**INTERFACE**
--> É um tipo que define um conjunto de operações que uma classe deve implementar;
-	-Estabelece um contrato que a classe deve cumprir
-	Exemplo:
-interface x{
-args;
-}
---> criam sistemas de baixo acoplamento e flexíveis;
