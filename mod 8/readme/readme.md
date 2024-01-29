@@ -1,1 +1,0 @@
-exercicíos introdutórios à programação orientada a objetos.
