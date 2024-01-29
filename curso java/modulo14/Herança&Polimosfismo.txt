@@ -1,0 +1,68 @@
+**HERANÇA**
+--> Tipo de associação que permite que uma classe herde todos os dados e comportamentos de outra;
+-->Sintaxe:
+public class A extends B {
+} //A classe A herda todos os atributos de B
+- Para adicionar atributos em classes herdadas basta adcionar os novos atributos como de costume;
+-Para gerar construtores usa-se a função 'super' (construtur da super classe), com ou sem argumentos. Inclusive, pode-se adicionar o 'super' sem argumentos (super();) para implementar automaticamente a logica da superclasse (classe herdada);
+
+**MODIFICADOR DE ACESSO PROTECTED**
+--> protected permite o acesso por classes no mesmo pacote ou por subclasses;
+
+
+--> herança é uma relação "é-um"
+--> generalização;
+--> superclasse (classe base)/SubClasse (classe derivada);
+--> herança / extensão;
+--> Herança é uma associação entre classes (e não entre objetos)
+
+** UPCASTING E DOWNCASTING**
+--> Upcasting: casting de uma subclasse para superclasse;
+	polimorfismo;
+-->Dowcanting: casting da superclasse para a subclasse;
+	palavra instanceof (testa se o casting é possível - usa a logica 'if');
+		if (Aa instanceof A){
+		args;	
+		}
+	uso em métodos que recebem parâmentros genéricos (ex. Equals - comparaçaõ entre objetos);
+
+**SOBREPOSIÇÃO OU SOBRESCRITA**
+--> Implementação de um método de uma superclasse na subclasse;
+	- É fortemente recomendável usar a anotação @Override em um método sobreescrito (indica ao compilador que é uma sobreposiçaõ de método;
+		-facilita a leitura e compreensão do código;
+		-avisamos ao compilador (boas práticas);
+-->è possivel chamar a implementação da superclasse usando a palavra 'super';
+
+**CLASSES E MÉTODOS FINAL**
+--> public final class SavingsAccount //evita que a classe seja herdada (não permite a criação de sobreclasses;
+--> metodo final:
+	public final void // impede a sobreposição de métodos em subclasses 
+		-geralmente usadas em métodos já sobrepostos 
+		-aumento de performace da execução;
+
+**INTRODUÇÃO AO POLIMORFISMO**
+
+ - É o recurso que permite que variáveis de um mesmo tipo mais genérico possam apontar para objetos de tipos específicos diferentes, tendo assim comportamentos diferentes conforme cada tipo específico;
+- A associaçao do tipo específico com o tipo genérico é feita em tempo de execução (upcasting);
+	EXEMPLO:
+	
+Account x = new Account (1020, "alex", 1000.0);
+Account y = new SavingsAccount (1023, "maria", 1000.0, 0.01); //upcasting
+
+x.withdraw (50); // o método é o da superclasse
+y.withdraw (50); //O método é o da subclasse
+
+**CLASSES ABSTRATAS**
+
+-Classes que não podem ser instanciadas;
+-forma de garantir herança total:somente subclasses não abstratas podem ser instânciadas, mas nunca a superclasse abstrata;
+-Uso da palavra abstract;
+-na UML (diagrama) as classes abstratas são representadas em itálico;
+
+
+**MÉTODOS ABSTRATOS**
+-não possuem implementação;
+-Métodos precisam ser abstratos quando a classe é genérica demais para conter sua implementação;
+-se uma classe possuir pelo menos um método abstrato, então essa classe também é abstrata;
+-Notação UML: em itálico;
+

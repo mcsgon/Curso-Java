@@ -1,0 +1,41 @@
+EXCEÇÕES
+
+->Qualquer condição de erro ou comportamento inesperado encontrado por um programa em execussão;
+-> em java é um objeto herdado da classe;
+-> quando lançada, uma exessão é propagada na pilha de chamadas ou de métodos em execução, até que seja capturada (tratada) ou o programa seja encerrado;
+-> error # exception;
+
+->O modelo de tratamento de exceções permite que erros sejam tratados de forma consistente e flexível, usando boas práticas.
+
+**ESTRUTURA TRY-CATCH**
+
+--> Bloco try: 
+	-Contém o código que representa a execução normal do trecho de código que pode acarretar em uma exceção;
+-->Bloco cath:
+	-Contém o código a ser executado caso uma exceção ocorra;
+	-Deve ser especificado o tipo de exceção a ser tratada (upcasting é permitido)
+
+				Exemplo:
+try{ //tenta executar - "captura" exceções
+}
+catch (ExceptionType e){ //bloco de comandos para execução caso haja erro
+}
+
+
+**BLOCO FINALY**
+
+-> É um bloco que contém codigo a ser executado endependentemente de ter ocorrido ou não uma exceção;
+->Exemplo: fechar um arquivo, conexão de banco de dados, ou outro recurso específico ao final do processamento;
+->Sintaxe:
+	try{}
+	catch (ExceptionType e){}
+	finaly{}
+
+excessões personalizadas:
+ -extensão de classe
+	-RoundTime:o compilador não obriga ao tratamento de erro;
+	-Exception: Compilador obriga a tratar exceções
+	-classe serialysibol: precisa de versão declarada: ex: private static final long serialVersionUID=1L;
+
+
+**CRIANDO EXPRESSÕES PERSONALIZADAS**

@@ -1,0 +1,36 @@
+**ENUMERAÇÃO**
+	-É uma tipo especial que serve para especificar de forma literal um conjunto de constantes relacionadas;
+	-palavra chave em Java:'enun';
+			SINTAXE
+--> No Programa:
+public enun OrderStatus{//definindo a enumeração
+	PENDING_PAYMENT,
+	PROCESSING,
+	SHIPPED,
+	DELIVERED
+}
+-->Nas 'entidades'
+public class Order{ 
+	private Integer id;
+	private Date momente;
+	private OrderStatus status //onde entra a enumeração;
+		(...)
+}
+ **CONVERSÃO DE STRING PARA ENUM**
+	orderStatus os1 = orderStatus.DELIVERED;
+	orderStatus os2 = orderStatus.vaLueOf("DELIVERED");
+
+**COMPOSIÇÃO**
+--> Tipo de associação que permite que um objeto contenha outro;
+--> relação "tem-um" ou "tem-vários";
+--> vantagens: organização;coesão;flexibilidade;reuso;
+--> simbolizado pela sigla UML (Todo parte) ---> simbolizado pelo "diamante preto" na associação de composição (diagrama).
+
+			EXERCÍCIO EXEMPLO 1
+
+-->Ler os dados de um trabalhador com N contratos (N fornecido pelo usuário). Depois, solicitar
+do usuário um mês e mostrar qual foi o salário do funcionário nesse mês.
+
+--> Resolução:
+//DEMONSTRAÇÃO STRINGBUILDER
+
