@@ -1,0 +1,70 @@
+Problema
+• Suponha uma classe Product com os atributos name e price.
+• Podemos implementar a comparação de produtos por meio da
+implementação da interface Comparable<Product>
+• Entretanto, desta forma nossa classe não fica fechada para
+alteração: se o critério de comparação mudar, precisaremos
+alterar a classe Product.
+• Podemos então usar o default method "sort" da interface List:
+default void sort(Comparator<? super E> c)
+
+Problema
+• Suponha uma classe Product com os atributos name e price.
+• Podemos implementar a comparação de produtos por meio da
+implementação da interface Comparable<Product>
+• Entretanto, desta forma nossa classe não fica fechada para
+alteração: se o critério de comparação mudar, precisaremos
+alterar a classe Product.
+• Podemos então usar o default method "sort" da interface List:
+default void sort(Comparator<? super E> c)
+
+Paradigmas da programação
+
+• Imperativo (C, Pascal, Fortran, Cobol)
+• Orientado a objetos (C++, Object Pascal, Java (< 8), C# (< 3))
+• Funcional (Haskell, Closure, Clean, Erlang)
+• Lógico (Prolog)
+• Multiparadigma (JavaScript, Java (8+), C# (3+), Ruby, Python, Go)
+
+--> Paradigma funcional
+	-Baseado no formalis,o matemático Calculo Lambda;
+	-> transparencia referencial: Uma funçaõ possui transparencia referencial quando seu resultado for sempre o mesmo para os mesmos dados de entrada. 
+		-Beneficios: simplicidade e previsibilidade.
+	--> Funções são objetos de primeira ordem/classe: podem ser passados como parâmetros de métodos, bem como retornadas como resultado de métodos.
+
+** Em programação funcional, expressão lambda corresponde a uma função anônima de primeira classe.
+
+**Interface Funcional**
+-Em programação funcional, expressão lambda corresponde a uma função anônima de primeira classe.
+
+
+**Predicate**
+https://docs.oracle.com/javase/10/docs/api/java/util/function/Predicate.html
+
+public interface Predicate<T> {
+boolean test (T t);
+}
+
+-é uma espécie de interface que tem apenas um método funcional para ser implementado;
+
+**Consumer**
+
+-Interface funcional: unico método abstrato;
+
+public interface Consumer<T> {
+void accept(T t);
+}
+
+**funcion**
+
+public interface Function<T, R> {
+R apply(T t);
+}
+Nota sobre a função map
+• A função "map" (não confunda com a estrutura de dados Map) é uma
+função que aplica uma função a todos elementos de uma stream.
+• Conversões:
+• List para stream: .stream()
+• Stream para List: .collect(Collectors.toList())
+
+

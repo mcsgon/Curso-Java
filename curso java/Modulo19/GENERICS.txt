@@ -1,0 +1,250 @@
+**GENERICS**
+
+-> Permite que cue classes, interfaces e métodos possam ser parametrizados por tipo.
+	-reuso;
+	-type safety;
+	-performance;
+--> uso comum em coleções;
+--> EXEMPLO:
+	List<String> list=new ArrayList<>();
+	list.add("maria");
+	String name = list.get(0);
+-->RESOLUÇÃO DO PROBLEMA MOTIVADOR:
+			**Classe de serviço**
+public class PrintService<T> {
+
+	private List<T> list = new ArrayList<>();
+
+	public void addValue(T value) {
+		list.add(value);
+	}
+
+	public T first() {
+		if (list.isEmpty()) {
+			throw new IllegalStateException("List is empty");
+		}
+		return list.get(0);
+	}
+
+	public void print() {
+		System.out.print("[");
+		if (!list.isEmpty()) {
+			System.out.print(list.get(0));
+		}
+		for (int i = 1; i < list.size(); i++) {
+			System.out.print(", " + list.get(i));
+		}
+		System.out.println("]");
+	}
+}
+		**Programa**
+
+public class Program {
+
+	public static void main(String[] args) {
+
+		Scanner sc = new Scanner(System.in);
+
+		PrintService<Integer> ps = new PrintService<>();
+		
+		System.out.print("How many values? ");
+		int n = sc.nextInt();
+		
+		for (int i = 0; i < n; i++) {
+			String value = sc.nextInt();
+			ps.addValue(value);
+		}
+
+		ps.print();
+		String x = ps.first();
+		System.out.println("First: " + x);
+		
+		sc.close();
+	}
+}
+
+
+**GENÉRICOS DELIMITADOS**
+
+-->EXEMPLO: Uma empresa de consultoria deseja avaliar a performance de produtos,
+funcionários, dentre outras coisas. Um dos cálculos que ela precisa é encontrar
+o maior dentre um conjunto de elementos. Fazer um programa que leia um
+conjunto de produtos a partir de um arquivo, conforme exemplo, e depois
+mostre o mais caro deles.
+--> Resolução:
+//serviço
+
+package services;
+
+import java.util.List;
+
+public class CalculationService {
+
+	public static <T extends Comparable<?super T>> T max(List<T> list) {
+		if (list.isEmpty()) {
+			throw new IllegalStateException("List can't be empty");
+		} 
+		T max = list.get(0);
+		for (T item : list) {
+			if (item.compareTo(max) > 0) {
+				max = item;
+			}
+		}
+		return max;
+	}
+}
+
+//Entidade produto
+package entities;
+
+public class Product implements Comparable<Product> {
+
+	private String name;
+	private Double price;
+	
+	public Product(String name, Double price) {
+		this.name = name;
+		this.price = price;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Double getPrice() {
+		return price;
+	}
+
+	public void setPrice(Double price) {
+		this.price = price;
+	}
+
+	@Override
+	public String toString() {
+		return name + ", " + String.format("%.2f", price);
+	}
+
+	@Override
+	public int compareTo(Product other) {
+		return price.compareTo(other.getPrice());
+	}
+}
+
+
+//Programa
+
+
+package application;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+
+import entities.Product;
+import services.CalculationService;
+
+public class Program {
+
+	public static void main(String[] args) {
+
+		Locale.setDefault(Locale.US);
+		
+		List<Product> list = new ArrayList<>();
+
+		String path = "C:\\temp\\in.txt";
+
+		try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+
+			String line = br.readLine();
+			while (line != null) {
+				String[] fields = line.split(",");
+				list.add(new Product(fields[0], Double.parseDouble(fields[1])));
+				line = br.readLine();
+			}
+			
+			Product x = CalculationService.max(list);
+			System.out.println("Most expensive:");
+			System.out.println(x);
+
+		} catch (IOException e) {
+			System.out.println("Error: " + e.getMessage());
+		} 
+	}
+}
+
+
+
+**TIPOS CURINGA (WILDCARD TYPES)**
+ 
+->Generics são invariantes:
+	-List <Object>não é supertipo de qualquer tipo de lista;
+	-O supertipo de qualquer tipo de lista é List<?>. Esse é um tipo coringa;
+		List<?> myObjs = new ArrayList<Object>();
+List<Integer> myNumbers = new ArrayList<Integer>();
+myObjs = myNumbers;
+->Com tipos curinga podemos fazer métodos que recebem um genérico de "qualquer tipo":
+package application;
+import java.util.Arrays;
+import java.util.List;
+public class Program {
+public static void main(String[] args) {
+List<Integer> myInts = Arrays.asList(5, 2, 10);
+printList(myInts);
+}
+public static void printList(List<?> list) {
+for (Object obj : list) {
+System.out.println(obj);
+}
+}
+}
+-->Porém não é possível adicionar dados a uma coleção de tipo curinga:
+package application;
+import java.util.ArrayList;
+import java.util.List;
+public class Program {
+public static void main(String[] args) {
+List<?> list = new ArrayList<Integer>();
+list.add(3); // erro de compilação
+}
+}
+-->O compilador não sabe qual é o tipo específico do qual a lista foi instanciada.
+
+-->Problema 2 (princípio get/put)
+Vamos fazer um método que copia os elementos de uma lista para uma
+outra lista que pode ser mais genérica que a primeira.
+List<Integer> myInts = Arrays.asList(1, 2, 3, 4);
+List<Double> myDoubles = Arrays.asList(3.14, 6.28);
+List<Object> myObjs = new ArrayList<Object>();
+copy(myInts, myObjs);
+copy(myDoubles, myObjs);
+
+-->Princípio get/put - covariância
+List<Integer> intList = new ArrayList<Integer>();
+intList.add(10);
+intList.add(5);
+List<? extends Number> list = intList;
+Number x = list.get(0);
+list.add(20); // erro de compilacao //get:ok; put:erro!
+-->Princípio get/put - contravariância
+List<Object> myObjs = new ArrayList<Object>();
+myObjs.add("Maria");
+myObjs.add("Alex");
+List<? super Number> myNums = myObjs;
+myNums.add(10);
+myNums.add(3.14);
+Number x = myNums.get(0); // erro de compilacao//get:erro; put:ok!
+
+
+
+
+
+
+
+ 
