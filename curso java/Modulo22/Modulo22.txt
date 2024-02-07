@@ -1,0 +1,21 @@
+**Introdução**
+
+-->A maior dificuldade de se usar a abordagem orientada a objetos é a comunicação com o banco de dados relacionais;
+
+**JPA**
+-> Java Persistence API (JPA) é a especificação padrão para a plataforma Java EE (pacote javax.persistence) para mapeamento objeto-relacional e persistência de dados;
+	-É apenas uma especificação (JSR338);
+-->Para trabalhar com JPA é preciso incluir no projeto uma implementação da API(ex.: Hibernate);
+
+
+**Principais Classes**
+
+
+EntityManeger:
+	Encapsula uma conexão com a base de dados e serve para efetuar operações de acesso a dados (inserção, remoção, deleçãõ, atualização) em entidades (clientes, produtos, pedidos, etc.) por ele monitoradas em um mesmo contexto de persistencia.
+	Escopo: tipicamente mantem-se uma instância única de EntityManager para cada thread do sistema (no caso de aplicações web, para cada requisição ao sistema). 
+
+EntityManegerFactory
+	
+	Um objeto EntityManagerFactory é utilizado para instanciar objetos EntityManager.
+ 	Escopo: tipicamente mantem-se uma instância única de EntityManagerFactory para toda aplicação. 
